@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sikucing — Temukan Sahabat Barumu</title>
+<meta name="description" content="Platform adopsi kucing terpercaya. Temukan kucing yang cocok, ajukan adopsi, dan bawa pulang sahabat barumu." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream:    #FFF8F0;
+    --surface:  #FFFFFF;
+    --border:   #F0E0CC;
+    --ink:      #3A2E26;
+    --muted:    #8A7A6D;
+    --terra:    #E2632A;
+    --terra-dk: #C44E1C;
+    --terra-lt: #FDE9DA;
+    --gold:     #E8A23D;
+    --green:    #5C8A5C;
+    --green-lt: #E8F1E3;
+    --red:      #C0463A;
+    --red-lt:   #FBE9E7;
+
+    --display: 'Fraunces', serif;
+    --body:    'Plus Jakarta Sans', sans-serif;
+    --mono:    'DM Mono', monospace;
+
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 22px;
+    --r-full: 999px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  :focus-visible { outline: 2px solid var(--terra); outline-offset: 2px; }
+
+  /* ════════ PAW PATTERN BACKGROUND ════════ */
+  .paw-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23E2632A' fill-opacity='0.05'%3E%3Cellipse cx='60' cy='75' rx='15' ry='12'/%3E%3Cellipse cx='42' cy='55' rx='7' ry='9' transform='rotate(-20 42 55)'/%3E%3Cellipse cx='60' cy='48' rx='7.5' ry='9.5'/%3E%3Cellipse cx='78' cy='55' rx='7' ry='9' transform='rotate(20 78 55)'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 120px 120px;
+    pointer-events: none;
+  }
+
+  /* ════════ NAV ════════ */
+  nav {
+    position: sticky;
+    top: 0; z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(255,248,240,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: var(--display);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-mark {
+    width: 36px; height: 36px;
+    background: var(--terra);
+    border-radius: var(--r-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.15s; }
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    background: var(--terra);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: var(--r-full);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--terra-dk); }
+
+  /* ════════ HERO ════════ */
+  #hero {
+    position: relative;
+    overflow: hidden;
+    padding: 72px 48px 96px;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--terra-dk);
+    background: var(--terra-lt);
+    padding: 7px 16px;
+    border-radius: var(--r-full);
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-family: var(--display);
+    font-size: clamp(40px, 5vw, 60px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .hero-title em { font-style: italic; color: var(--terra); }
+
+  .hero-desc {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 460px;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 28px;
+    border-radius: var(--r-full);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+
+  .btn-primary { background: var(--terra); color: #fff; }
+  .btn-primary:hover { background: var(--terra-dk); transform: translateY(-1px); }
+
+  .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+  .btn-outline:hover { border-color: var(--terra); color: var(--terra); }
+
+  .hero-trust { display: flex; gap: 28px; flex-wrap: wrap; }
+
+  .trust-item { display: flex; flex-direction: column; }
+  .trust-num { font-family: var(--display); font-size: 26px; font-weight: 600; color: var(--ink); }
+  .trust-label { font-size: 12px; color: var(--muted); }
+
+  /* Hero illustration */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 1/1;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--terra-lt), var(--gold) 140%);
+  }
+
+  .hero-visual svg { width: 80%; height: 80%; margin: 10% auto; }
+
+  .hero-badge-float {
+    position: absolute;
+    bottom: 24px; left: 24px;
+    background: #fff;
+    border-radius: var(--r-md);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 24px rgba(58,46,38,0.12);
+  }
+
+  .hero-badge-icon {
+    width: 30px; height: 30px;
+    background: var(--green-lt);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .hero-badge-text { font-size: 12px; color: var(--muted); }
+  .hero-badge-text strong { display: block; font-size: 13px; color: var(--ink); font-weight: 700; }
+
+  /* ════════ SECTION BASE ════════ */
+  section { padding: 80px 48px; max-width: 1280px; margin: 0 auto; }
+
+  .section-head { text-align: center; margin-bottom: 56px; }
+
+  .section-tag {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--terra);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .section-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 440px;
+    margin: 12px auto 0;
+  }
+
+  /* ════════ FILTER BAR ════════ */
+  #katalog { border-top: 1px solid var(--border); }
+
+  .filter-bar {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+
+  .filter-chip {
+    padding: 9px 20px;
+    border-radius: var(--r-full);
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+
+  .filter-chip.active,
+  .filter-chip:hover {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: #fff;
+  }
+
+  /* ════════ CAT GRID ════════ */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .cat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+
+  .cat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(58,46,38,0.1);
+  }
+
+  .cat-photo {
+    height: 220px;
+    background: var(--terra-lt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cat-photo svg { width: 50%; height: 50%; opacity: 0.85; }
+
+  .cat-status {
+    position: absolute;
+    top: 14px; left: 14px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: var(--r-full);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    z-index: 2;
+  }
+
+  .status-tersedia { background: var(--green-lt); color: var(--green); }
+  .status-proses { background: #FFF3D6; color: var(--gold); }
+  .status-terdopsi { background: #EEE; color: var(--muted); }
+
+  .cat-fav {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background 0.15s;
+    z-index: 2;
+  }
+  .cat-fav:hover { background: #fff; }
+
+  .cat-info { padding: 20px; }
+
+  .cat-name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .cat-name { font-family: var(--display); font-size: 19px; font-weight: 600; }
+  .cat-age { font-size: 12px; color: var(--muted); }
+
+  .cat-meta { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+
+  .cat-meta-tag {
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--cream);
+    padding: 4px 10px;
+    border-radius: var(--r-full);
+    border: 1px solid var(--border);
+  }
+
+  .cat-bottom { display: flex; justify-content: space-between; align-items: center; }
+
+  .cat-fee { font-family: var(--mono); font-size: 13px; color: var(--terra-dk); font-weight: 500; }
+  .cat-fee span { color: var(--muted); font-size: 11px; }
+
+  .cat-cta { font-size: 13px; font-weight: 700; color: var(--terra); display: flex; align-items: center; gap: 4px; }
+
+  /* ════════ UPLOAD KUCING ════════ */
+  #upload { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .upload-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+
+  .upload-dropzone {
+    border: 2px dashed var(--border);
+    border-radius: var(--r-lg);
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--cream);
+    transition: border-color 0.15s, background 0.15s;
+    cursor: pointer;
+    display: block;
+  }
+
+  .upload-dropzone:hover,
+  .upload-dropzone.drag-over { border-color: var(--terra); background: var(--terra-lt); }
+
+  .upload-dropzone input { display: none; }
+
+  .upload-icon { font-size: 40px; margin-bottom: 14px; }
+  .upload-text { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .upload-hint { font-size: 12px; color: var(--muted); }
+
+  .upload-preview { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+  .upload-preview img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border);
+  }
+
+  .form-group { margin-bottom: 20px; }
+
+  .form-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-sm);
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--cream);
+    color: var(--ink);
+    transition: border-color 0.15s;
+  }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--terra);
+    background: #fff;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-textarea { resize: vertical; min-height: 90px; }
+
+  /* ════════ PROSES ADOPSI ════════ */
+  #proses { border-top: 1px solid var(--border); }
+
+  .proses-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+  .proses-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 28px 22px;
+    position: relative;
+  }
+
+  .proses-num {
+    width: 36px; height: 36px;
+    background: var(--terra);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+
+  .proses-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .proses-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ════════ SYARAT & KETENTUAN ════════ */
+  #syarat { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .syarat-wrap {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 40px;
+  }
+
+  .syarat-list { display: flex; flex-direction: column; gap: 20px; }
+  .syarat-item { display: flex; gap: 16px; align-items: flex-start; }
+
+  .syarat-check {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--green-lt);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .syarat-text { font-size: 14px; color: var(--ink); line-height: 1.6; }
+  .syarat-text strong { font-weight: 700; }
+
+  .syarat-note {
+    margin-top: 28px;
+    padding: 16px 20px;
+    background: var(--red-lt);
+    border-radius: var(--r-sm);
+    font-size: 13px;
+    color: var(--red);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  /* ════════ MODALS ════════ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(58,46,38,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: #fff;
+    border-radius: var(--r-lg);
+    max-width: 460px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 32px;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--muted);
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: var(--terra-lt); color: var(--terra); }
+
+  .modal-title { font-family: var(--display); font-size: 24px; font-weight: 600; margin-bottom: 6px; padding-right: 30px; }
+  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+
+  .modal-success { text-align: center; padding: 20px 0; }
+  .modal-success-icon {
+    width: 64px; height: 64px;
+    background: var(--green-lt);
+    color: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 20px;
+  }
+  .modal-success-title { font-family: var(--display); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+  .modal-success-desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+
+  /* ════════ CTA BAND ════════ */
+  #cta-band { margin: 0 auto; max-width: 1280px; padding: 64px 48px 96px; }
+
+  .cta-card {
+    background: var(--ink);
+    border-radius: var(--r-lg);
+    padding: 64px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-card .paw-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.04'%3E%3Cellipse cx='60' cy='75' rx='15' ry='12'/%3E%3Cellipse cx='42' cy='55' rx='7' ry='9' transform='rotate(-20 42 55)'/%3E%3Cellipse cx='60' cy='48' rx='7.5' ry='9.5'/%3E%3Cellipse cx='78' cy='55' rx='7' ry='9' transform='rotate(20 78 55)'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .cta-card-title {
+    font-family: var(--display);
+    font-size: clamp(26px, 3.5vw, 38px);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-card-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    max-width: 420px;
+    margin: 0 auto 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-card .btn { position: relative; z-index: 1; }
+
+  /* ════════ FOOTER ════════ */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .footer-copy { font-size: 13px; color: var(--muted); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-size: 13px; color: var(--muted); transition: color 0.15s; }
+  .footer-links a:hover { color: var(--terra); }
+
+  /* ════════ TOAST ════════ */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: var(--r-full);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 300;
+  }
+
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+
+  /* ════════ RESPONSIVE ════════ */
+  @media (max-width: 1000px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero { padding: 48px 24px 64px; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { max-width: 380px; margin: 0 auto; }
+    section { padding: 56px 24px; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .upload-wrap { grid-template-columns: 1fr; gap: 32px; }
+    .proses-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .syarat-wrap { padding: 28px 22px; }
+    .cta-card { padding: 48px 28px; }
+    footer { padding: 32px 24px; flex-direction: column; }
+  }
+
+  @media (max-width: 600px) {
+    .cat-grid { grid-template-columns: 1fr; }
+    .proses-grid { grid-template-columns: 1fr; }
+    .hero-trust { gap: 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════ NAV ════════ -->
+<nav>
+  <div class="logo">
+    <span class="logo-mark">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M12 15c-3 0-5.5 2-5.5 4.5 0 1 1 1.5 2 1.2 1-.3 2.2-.5 3.5-.5s2.5.2 3.5.5c1 .3 2-.2 2-1.2C17.5 17 15 15 12 15z" fill="#FFF8F0"/>
+        <ellipse cx="7.5" cy="11" rx="1.6" ry="2.1" transform="rotate(-25 7.5 11)" fill="#FFF8F0"/>
+        <ellipse cx="12" cy="9.5" rx="1.7" ry="2.2" fill="#FFF8F0"/>
+        <ellipse cx="16.5" cy="11" rx="1.6" ry="2.1" transform="rotate(25 16.5 11)" fill="#FFF8F0"/>
+      </svg>
+    </span>
+    Sikucing
+  </div>
+  <ul class="nav-links">
+    <li><a href="#katalog">Katalog</a></li>
+    <li><a href="#upload">Daftarkan Kucing</a></li>
+    <li><a href="#proses">Cara Adopsi</a></li>
+    <li><a href="#syarat">Syarat Akad</a></li>
+    <li><a href="#katalog" class="nav-cta">Cari Kucing</a></li>
+  </ul>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section id="hero">
+  <div class="paw-pattern"></div>
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">🐾 100% Adopsi, Bukan Jual Beli Komersial</p>
+      <h1 class="hero-title">Setiap kucing berhak <em>punya rumah.</em></h1>
+      <p class="hero-desc">
+        Sikucing menghubungkan kucing yang butuh rumah dengan orang yang siap merawatnya. Transparan, aman, dan penuh kasih — dari awal pencarian sampai akad serah terima.
+      </p>
+      <div class="hero-actions">
+        <a href="#katalog" class="btn btn-primary">Cari Kucing Sekarang</a>
+        <a href="#upload" class="btn btn-outline">Daftarkan Kucingmu</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-num">120+</span><span class="trust-label">Kucing teradopsi</span></div>
+        <div class="trust-item"><span class="trust-num">45</span><span class="trust-label">Tersedia sekarang</span></div>
+        <div class="trust-item"><span class="trust-num">98%</span><span class="trust-label">Adopter puas</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <!-- Ilustrasi kucing duduk, custom SVG -->
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- ekor -->
+        <path d="M150 150 Q185 140 180 95 Q177 75 160 80" stroke="#C44E1C" stroke-width="14" stroke-linecap="round" fill="none"/>
+        <!-- badan -->
+        <ellipse cx="100" cy="145" rx="52" ry="42" fill="#C44E1C"/>
+        <!-- kepala -->
+        <circle cx="100" cy="85" r="40" fill="#E2632A"/>
+        <!-- telinga kiri -->
+        <path d="M68 60 L58 28 L92 52 Z" fill="#E2632A"/>
+        <path d="M70 56 L64 36 L86 52 Z" fill="#FDE9DA"/>
+        <!-- telinga kanan -->
+        <path d="M132 60 L142 28 L108 52 Z" fill="#E2632A"/>
+        <path d="M130 56 L136 36 L114 52 Z" fill="#FDE9DA"/>
+        <!-- garis wajah -->
+        <path d="M70 95 Q100 110 130 95" stroke="#C44E1C" stroke-width="2" fill="none" opacity="0.4"/>
+        <!-- mata -->
+        <ellipse cx="84" cy="82" rx="6" ry="8" fill="#3A2E26"/>
+        <ellipse cx="116" cy="82" rx="6" ry="8" fill="#3A2E26"/>
+        <circle cx="86" cy="79" r="2" fill="#FFF8F0"/>
+        <circle cx="118" cy="79" r="2" fill="#FFF8F0"/>
+        <!-- hidung -->
+        <path d="M96 96 L104 96 L100 102 Z" fill="#3A2E26"/>
+        <!-- mulut -->
+        <path d="M100 102 Q94 108 86 104" stroke="#3A2E26" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M100 102 Q106 108 114 104" stroke="#3A2E26" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- kumis kiri -->
+        <line x1="62" y1="88" x2="34" y2="84" stroke="#3A2E26" stroke-width="1.5" opacity="0.5"/>
+        <line x1="62" y1="95" x2="34" y2="96" stroke="#3A2E26" stroke-width="1.5" opacity="0.5"/>
+        <!-- kumis kanan -->
+        <line x1="138" y1="88" x2="166" y2="84" stroke="#3A2E26" stroke-width="1.5" opacity="0.5"/>
+        <line x1="138" y1="95" x2="166" y2="96" stroke="#3A2E26" stroke-width="1.5" opacity="0.5"/>
+        <!-- kaki depan -->
+        <ellipse cx="78" cy="178" rx="11" ry="16" fill="#C44E1C"/>
+        <ellipse cx="122" cy="178" rx="11" ry="16" fill="#C44E1C"/>
+        <!-- belang badan -->
+        <path d="M70 130 Q100 138 130 130" stroke="#FDE9DA" stroke-width="5" fill="none" opacity="0.5"/>
+        <path d="M68 150 Q100 158 132 150" stroke="#FDE9DA" stroke-width="5" fill="none" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="hero-badge-float" style="margin-top:-40px; margin-left: 56%;">
+      <span class="hero-badge-icon">✓</span>
+      <span class="hero-badge-text"><strong>Vaksin Lengkap</strong>Siap diadopsi</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ KATALOG ════════ -->
+<section id="katalog">
+  <div class="section-head">
+    <p class="section-tag">Katalog Kucing</p>
+    <h2 class="section-title">Temukan yang cocok untukmu</h2>
+    <p class="section-sub">Semua kucing telah melalui pemeriksaan kesehatan dasar sebelum ditampilkan di sini.</p>
+  </div>
+
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-chip active" data-filter="semua">Semua</button>
+    <button class="filter-chip" data-filter="anak">Anak Kucing</button>
+    <button class="filter-chip" data-filter="dewasa">Dewasa</button>
+    <button class="filter-chip" data-filter="tersedia">Tersedia</button>
+  </div>
+
+  <div class="cat-grid" id="catGrid"></div>
+</section>
+
+<!-- ════════ UPLOAD ════════ -->
+<section id="upload">
+  <div class="section-head">
+    <p class="section-tag">Daftarkan Kucing</p>
+    <h2 class="section-title">Punya kucing yang butuh rumah baru?</h2>
+    <p class="section-sub">Isi formulir ini untuk menampilkan kucingmu di katalog Sikucing.</p>
+  </div>
+
+  <div class="upload-wrap">
+    <div>
+      <label class="upload-dropzone" id="dropzone">
+        <input type="file" id="fileInput" accept="image/*" multiple />
+        <div class="upload-icon">📷</div>
+        <p class="upload-text">Klik atau seret foto kucing ke sini</p>
+        <p class="upload-hint">Format JPG/PNG, maksimal 5MB per foto, bisa lebih dari satu</p>
+      </label>
+      <div class="upload-preview" id="previewGrid"></div>
+    </div>
+
+    <form id="uploadForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nama Kucing</label>
+          <input type="text" class="form-input" placeholder="Contoh: Mochi" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Usia</label>
+          <input type="text" class="form-input" placeholder="Contoh: 6 bulan" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Jenis Kelamin</label>
+          <select class="form-select" required>
+            <option value="">Pilih</option>
+            <option>Jantan</option>
+            <option>Betina</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ras</label>
+          <input type="text" class="form-input" placeholder="Domestik / Anggora / dll" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Lokasi</label>
+        <input type="text" class="form-input" placeholder="Kota tempat kucing berada" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status Kesehatan</label>
+        <textarea class="form-textarea" placeholder="Contoh: Sudah vaksin 2x, sudah steril, sehat dan aktif"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Cerita Singkat</label>
+        <textarea class="form-textarea" placeholder="Ceritakan kepribadian dan kebiasaan kucingmu"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Tampilkan di Katalog</button>
+    </form>
+  </div>
+</section>
+
+<!-- ════════ PROSES ADOPSI ════════ -->
+<section id="proses">
+  <div class="section-head">
+    <p class="section-tag">Cara Adopsi</p>
+    <h2 class="section-title">4 langkah menuju rumah baru</h2>
+  </div>
+  <div class="proses-grid">
+    <div class="proses-card">
+      <div class="proses-num">1</div>
+      <p class="proses-title">Pilih Kucing</p>
+      <p class="proses-desc">Jelajahi katalog, baca profil lengkapnya, dan tentukan kucing yang cocok dengan rumahmu.</p>
+    </div>
+    <div class="proses-card">
+      <div class="proses-num">2</div>
+      <p class="proses-title">Ajukan Adopsi</p>
+      <p class="proses-desc">Isi formulir pengajuan singkat. Tim kami akan menghubungimu dalam 1-2 hari kerja.</p>
+    </div>
+    <div class="proses-card">
+      <div class="proses-num">3</div>
+      <p class="proses-title">Wawancara & Survei</p>
+      <p class="proses-desc">Sesi tanya jawab singkat untuk memastikan kucing akan dirawat di lingkungan yang aman.</p>
+    </div>
+    <div class="proses-card">
+      <div class="proses-num">4</div>
+      <p class="proses-title">Akad Serah Terima</p>
+      <p class="proses-desc">Penandatanganan surat pernyataan adopsi dan kucing resmi pindah ke rumah barunya.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ SYARAT & KETENTUAN ════════ -->
+<section id="syarat">
+  <div class="section-head">
+    <p class="section-tag">Akad Adopsi</p>
+    <h2 class="section-title">Syarat & Ketentuan</h2>
+    <p class="section-sub">Disetujui kedua pihak sebelum kucing resmi berpindah tangan.</p>
+  </div>
+
+  <div class="syarat-wrap">
+    <div class="syarat-list">
+      <div class="syarat-item">
+        <span class="syarat-check">✓</span>
+        <p class="syarat-text"><strong>Identitas jelas.</strong> Calon adopter wajib menyerahkan KTP/identitas resmi yang masih berlaku.</p>
+      </div>
+      <div class="syarat-item">
+        <span class="syarat-check">✓</span>
+        <p class="syarat-text"><strong>Usia minimal 18 tahun</strong> atau didampingi orang tua/wali bagi pemohon di bawah umur.</p>
+      </div>
+      <div class="syarat-item">
+        <span class="syarat-check">✓</span>
+        <p class="syarat-text"><strong>Kesanggupan merawat.</strong> Adopter menyatakan siap memberi pangan, tempat tinggal, dan perawatan kesehatan secara berkelanjutan.</p>
+      </div>
+      <div class="syarat-item">
+        <span class="syarat-check">✓</span>
+        <p class="syarat-text"><strong>Biaya adopsi.</strong> Sejumlah biaya dikenakan untuk mengganti pengeluaran vaksin, sterilisasi, dan perawatan — bukan harga jual kucing.</p>
+      </div>
+      <div class="syarat-item">
+        <span class="syarat-check">✓</span>
+        <p class="syarat-text"><strong>Larangan jual ulang.</strong> Kucing yang telah diadopsi tidak boleh dijual kembali atau dipindahtangankan tanpa sepengetahuan Sikucing.</p>
+      </div>
+      <div class="syarat-item">
+        <span class="syarat-check">✓</span>
+        <p class="syarat-text"><strong>Hak kunjungan.</strong> Sikucing berhak melakukan kunjungan tindak lanjut untuk memastikan kesejahteraan kucing setelah adopsi.</p>
+      </div>
+      <div class="syarat-item">
+        <span class="syarat-check">✓</span>
+        <p class="syarat-text"><strong>Pengembalian.</strong> Jika adopter tidak lagi sanggup merawat, kucing wajib dikembalikan ke Sikucing — tidak dititipkan ke pihak lain secara sepihak.</p>
+      </div>
+    </div>
+
+    <div class="syarat-note">
+      <span>⚠️</span>
+      <span>Surat pernyataan akad adopsi akan ditandatangani di atas materai saat proses serah terima berlangsung, sebagai bentuk komitmen tertulis kedua belah pihak.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CTA ════════ -->
+<section id="cta-band">
+  <div class="cta-card">
+    <div class="paw-pattern"></div>
+    <h2 class="cta-card-title">Siap menjadi rumah baru?</h2>
+    <p class="cta-card-desc">Ratusan kucing sedang menunggu seseorang seperti kamu. Mulai pencarianmu hari ini.</p>
+    <a href="#katalog" class="btn btn-primary">Mulai Cari Kucing →</a>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="logo" style="font-size:18px;">
+    <span class="logo-mark" style="width:28px;height:28px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M12 15c-3 0-5.5 2-5.5 4.5 0 1 1 1.5 2 1.2 1-.3 2.2-.5 3.5-.5s2.5.2 3.5.5c1 .3 2-.2 2-1.2C17.5 17 15 15 12 15z" fill="#FFF8F0"/>
+        <ellipse cx="7.5" cy="11" rx="1.6" ry="2.1" transform="rotate(-25 7.5 11)" fill="#FFF8F0"/>
+        <ellipse cx="12" cy="9.5" rx="1.7" ry="2.2" fill="#FFF8F0"/>
+        <ellipse cx="16.5" cy="11" rx="1.6" ry="2.1" transform="rotate(25 16.5 11)" fill="#FFF8F0"/>
+      </svg>
+    </span>
+    Sikucing
+  </div>
+  <ul class="footer-links">
+    <li><a href="#katalog">Katalog</a></li>
+    <li><a href="#upload">Daftarkan Kucing</a></li>
+    <li><a href="#syarat">Syarat Akad</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Sikucing — Platform Adopsi Kucing</p>
+</footer>
+
+<!-- ════════ MODAL DETAIL KUCING ════════ -->
+<div class="modal-overlay" id="catModal">
+  <div class="modal-box" id="catModalContent"></div>
+</div>
+
+<!-- ════════ MODAL FORM ADOPSI ════════ -->
+<div class="modal-overlay" id="adoptModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('adoptModal')">✕</button>
+    <div id="adoptFormWrap">
+      <h3 class="modal-title">Ajukan Adopsi</h3>
+      <p class="modal-sub" id="adoptCatName">Untuk: -</p>
+      <form id="adoptForm">
+        <div class="form-group">
+          <label class="form-label">Nama Lengkap</label>
+          <input type="text" class="form-input" placeholder="Nama kamu" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nomor WhatsApp</label>
+          <input type="tel" class="form-input" placeholder="08xxxxxxxxxx" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Kota Domisili</label>
+          <input type="text" class="form-input" placeholder="Kota tempat tinggal" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Alasan Mengadopsi</label>
+          <textarea class="form-textarea" placeholder="Ceritakan kesiapanmu merawat kucing ini" required></textarea>
+        </div>
+        <div class="form-group" style="display:flex; align-items:flex-start; gap:10px;">
+          <input type="checkbox" id="agreeTerms" required style="margin-top:3px;" />
+          <label for="agreeTerms" style="font-size:13px; color:var(--muted);">Saya telah membaca dan menyetujui <a href="#syarat" style="color:var(--terra); font-weight:600;">syarat & ketentuan akad adopsi</a>.</label>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:8px;">Kirim Pengajuan</button>
+      </form>
+    </div>
+    <div class="modal-success" id="adoptSuccess" style="display:none;">
+      <div class="modal-success-icon">✓</div>
+      <p class="modal-success-title">Pengajuan Terkirim!</p>
+      <p class="modal-success-desc">Tim Sikucing akan menghubungimu lewat WhatsApp dalam 1-2 hari kerja untuk proses selanjutnya.</p>
+      <button class="btn btn-primary" onclick="closeModal('adoptModal')">Selesai</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ TOAST ════════ -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* Helper untuk membuat SVG kucing mini dengan warna berbeda per kucing */
+  function catSVG(color, colorDark) {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="72" rx="26" ry="21" fill="${colorDark}"/>
+      <circle cx="50" cy="42" r="20" fill="${color}"/>
+      <path d="M34 30 L29 14 L46 26 Z" fill="${color}"/>
+      <path d="M66 30 L71 14 L54 26 Z" fill="${color}"/>
+      <ellipse cx="42" cy="41" rx="3" ry="4" fill="#3A2E26"/>
+      <ellipse cx="58" cy="41" rx="3" ry="4" fill="#3A2E26"/>
+      <path d="M48 48 L52 48 L50 51 Z" fill="#3A2E26"/>
+      <path d="M50 51 Q47 54 43 52" stroke="#3A2E26" stroke-width="1.2" fill="none"/>
+      <path d="M50 51 Q53 54 57 52" stroke="#3A2E26" stroke-width="1.2" fill="none"/>
+    </svg>`;
+  }
+
+  const cats = [
+    { id: 1, name: "Mochi", age: "3 bulan", gender: "Jantan", category: "anak", status: "tersedia", breed: "Domestik", fee: "150.000", color: "#E2632A", colorDark: "#C44E1C", desc: "Mochi sangat aktif dan suka bermain dengan bola kertas. Sudah divaksin pertama dan dalam kondisi sehat." },
+    { id: 2, name: "Luna", age: "1 tahun", gender: "Betina", category: "dewasa", status: "tersedia", breed: "Anggora Mix", fee: "200.000", color: "#8A7A6D", colorDark: "#6B5D52", desc: "Luna kucing yang tenang dan manja, cocok untuk keluarga dengan anak-anak. Sudah steril dan vaksin lengkap." },
+    { id: 3, name: "Kopi", age: "5 bulan", gender: "Jantan", category: "anak", status: "proses", breed: "Domestik", fee: "150.000", color: "#3A2E26", colorDark: "#241C17", desc: "Kopi sedang dalam proses adopsi dengan calon pemilik. Energik dan suka dielus." },
+    { id: 4, name: "Oyen", age: "2 tahun", gender: "Jantan", category: "dewasa", status: "tersedia", breed: "Domestik Oranye", fee: "180.000", color: "#E8A23D", colorDark: "#C9871F", desc: "Oyen kucing dewasa yang santai, suka tidur di tempat hangat. Sudah steril dan terlatih litter box." },
+    { id: 5, name: "Mimi", age: "4 bulan", gender: "Betina", category: "anak", status: "tersedia", breed: "Domestik", fee: "150.000", color: "#D9C2A8", colorDark: "#BFA587", desc: "Mimi kucing kecil yang penuh rasa ingin tahu. Vaksin pertama sudah selesai." },
+    { id: 6, name: "Si Hitam", age: "1.5 tahun", gender: "Betina", category: "dewasa", status: "terdopsi", breed: "Domestik Hitam", fee: "180.000", color: "#3A2E26", colorDark: "#241C17", desc: "Si Hitam telah menemukan rumah barunya. Terima kasih atas perhatiannya!" }
+  ];
+
+  const statusLabel = { tersedia: "Tersedia", proses: "Proses Adopsi", terdopsi: "Sudah Diadopsi" };
+
+  function renderCats(filter = "semua") {
+    const grid = document.getElementById("catGrid");
+    grid.innerHTML = "";
+
+    const filtered = cats.filter(cat => {
+      if (filter === "semua") return true;
+      if (filter === "tersedia") return cat.status === "tersedia";
+      return cat.category === filter;
+    });
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<p style="text-align:center; color:var(--muted); grid-column:1/-1; padding:40px 0;">Belum ada kucing untuk filter ini.</p>';
+      return;
+    }
+
+    filtered.forEach(cat => {
+      const card = document.createElement("div");
+      card.className = "cat-card";
+      card.innerHTML = `
+        <div class="cat-photo">
+          ${catSVG(cat.color, cat.colorDark)}
+          <span class="cat-status status-${cat.status}">${statusLabel[cat.status]}</span>
+          <span class="cat-fav" onclick="event.stopPropagation(); toggleFav(this)">🤍</span>
+        </div>
+        <div class="cat-info">
+          <div class="cat-name-row">
+            <span class="cat-name">${cat.name}</span>
+            <span class="cat-age">${cat.age}</span>
+          </div>
+          <div class="cat-meta">
+            <span class="cat-meta-tag">${cat.gender}</span>
+            <span class="cat-meta-tag">${cat.breed}</span>
+          </div>
+          <div class="cat-bottom">
+            <span class="cat-fee">Rp${cat.fee}<span> biaya adopsi</span></span>
+            <span class="cat-cta">Lihat →</span>
+          </div>
+        </div>
+      `;
+      card.addEventListener("click", () => openCatDetail(cat.id));
+      grid.appendChild(card);
+    });
+  }
+
+  function toggleFav(el) {
+    el.textContent = el.textContent === "🤍" ? "❤️" : "🤍";
+  }
+
+  document.getElementById("filterBar").addEventListener("click", (e) => {
+    if (!e.target.classList.contains("filter-chip")) return;
+    document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+    e.target.classList.add("active");
+    renderCats(e.target.dataset.filter);
+  });
+
+  function openCatDetail(id) {
+    const cat = cats.find(c => c.id === id);
+    const content = document.getElementById("catModalContent");
+    const disabled = cat.status !== "tersedia";
+
+    content.innerHTML = `
+      <button class="modal-close" onclick="closeModal('catModal')">✕</button>
+      <div style="height:200px; background:var(--terra-lt); border-radius:var(--r-md); display:flex; align-items:center; justify-content:center; margin-bottom:20px; padding: 30px;">
+        ${catSVG(cat.color, cat.colorDark)}
+      </div>
+      <h3 class="modal-title">${cat.name}</h3>
+      <p class="modal-sub">${cat.age} · ${cat.gender} · ${cat.breed}</p>
+      <p style="font-size:14px; color:var(--ink); line-height:1.7; margin-bottom:20px;">${cat.desc}</p>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-top:1px solid var(--border); margin-bottom:20px;">
+        <span style="font-size:13px; color:var(--muted);">Biaya adopsi</span>
+        <span style="font-family:var(--mono); font-weight:600; color:var(--terra-dk);">Rp${cat.fee}</span>
+      </div>
+      <button class="btn btn-primary" style="width:100%; justify-content:center;" ${disabled ? "disabled style='opacity:0.5;cursor:not-allowed;width:100%;justify-content:center;'" : `onclick="openAdoptForm('${cat.name}')"`}>
+        ${disabled ? statusLabel[cat.status] : "Ajukan Adopsi"}
+      </button>
+    `;
+    document.getElementById("catModal").classList.add("open");
+  }
+
+  function openAdoptForm(name) {
+    closeModal("catModal");
+    document.getElementById("adoptCatName").textContent = "Untuk: " + name;
+    document.getElementById("adoptFormWrap").style.display = "block";
+    document.getElementById("adoptSuccess").style.display = "none";
+    document.getElementById("adoptModal").classList.add("open");
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove("open");
+  }
+
+  document.querySelectorAll(".modal-overlay").forEach(overlay => {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) overlay.classList.remove("open");
+    });
+  });
+
+  document.getElementById("adoptForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    document.getElementById("adoptFormWrap").style.display = "none";
+    document.getElementById("adoptSuccess").style.display = "block";
+  });
+
+  const dropzone = document.getElementById("dropzone");
+  const fileInput = document.getElementById("fileInput");
+  const previewGrid = document.getElementById("previewGrid");
+
+  fileInput.addEventListener("change", (e) => handleFiles(e.target.files));
+
+  dropzone.addEventListener("dragover", (e) => { e.preventDefault(); dropzone.classList.add("drag-over"); });
+  dropzone.addEventListener("dragleave", () => dropzone.classList.remove("drag-over"));
+  dropzone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropzone.classList.remove("drag-over");
+    handleFiles(e.dataTransfer.files);
+  });
+
+  function handleFiles(files) {
+    [...files].forEach(file => {
+      if (!file.type.startsWith("image/")) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        previewGrid.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById("uploadForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    showToast("✓ Kucing berhasil ditambahkan ke katalog!");
+    e.target.reset();
+    previewGrid.innerHTML = "";
+  });
+
+  function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+
+  renderCats();
+</script>
+
+</body>
+</html>
